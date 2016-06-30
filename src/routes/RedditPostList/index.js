@@ -10,10 +10,10 @@ export default (store) => ({
       /*  Webpack - use require callback to define
           dependencies for bundling   */
       const RedditPostList = require('./containers/RedditPostListContainer').default
-      const reducer = require('./modules/counter').default
+      const reducer = require('./reducers/index').default
 
       /*  Add the reducer to the store on key 'counter'  */
-      injectReducer(store, { key: 'posts', reducer })
+      injectReducer(store, { key: 'PostList', reducer })
 
       /*  Return getComponent   */
       cb(null, RedditPostList)

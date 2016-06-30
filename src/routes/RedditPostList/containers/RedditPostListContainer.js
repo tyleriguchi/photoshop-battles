@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchPosts } from '../modules/counter'
+import { fetchPosts } from '../actions'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -13,13 +13,11 @@ import RedditPostList from 'components/RedditPostList'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapActionCreators = {
-  // increment: () => increment(1),
-  // doubleAsync
   fetchPosts
 }
 
 const mapStateToProps = (state) => ({
-  posts: state.posts
+  posts: state.PostList.get('posts')
 })
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
