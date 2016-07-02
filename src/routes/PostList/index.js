@@ -9,7 +9,7 @@ export default (store) => ({
     require.ensure([], (require) => {
       /*  Webpack - use require callback to define
           dependencies for bundling   */
-      const RedditPostList = require('./containers/RedditPostListContainer').default
+      const RedditPostList = require('./containers/PostListContainer').default
       const reducer = require('./reducers/index').default
 
       /*  Add the reducer to the store on key 'counter'  */

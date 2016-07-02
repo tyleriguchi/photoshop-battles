@@ -6,7 +6,7 @@ import { fetchPosts } from '../actions'
     wiring in the actions and state necessary to render a presentational
     component - in this case, the counter:   */
 
-import RedditPostList from 'components/RedditPostList'
+import PostList from 'components/PostList'
 
 /*  Object of action creators (can also be function that returns object).
     Keys will be passed as props to presentational components. Here we are
@@ -16,9 +16,12 @@ const mapActionCreators = {
   fetchPosts
 }
 
-const mapStateToProps = (state) => ({
-  posts: state.PostList.get('posts')
-})
+const mapStateToProps = (state, ownProps) => {(
+  return {
+    id: ownProps.params.id,
+    posts: state.PostList.get('posts')
+  }
+)};
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
 
@@ -34,4 +37,4 @@ const mapStateToProps = (state) => ({
     Selectors are composable. They can be used as input to other selectors.
     https://github.com/reactjs/reselect    */
 
-export default connect(mapStateToProps, mapActionCreators)(RedditPostList)
+export default connect(mapStateToProps, mapActionCreators)(PostList)

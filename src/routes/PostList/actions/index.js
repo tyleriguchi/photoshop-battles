@@ -7,6 +7,7 @@ export function receivedPosts(posts = []) {
 
     if (data.thumbnail !== 'self') {
       return {
+        id: data.id,
         title: data.title,
         images: data.preview.images,
         score: data.score,
@@ -15,8 +16,6 @@ export function receivedPosts(posts = []) {
     }
     return null;
   });
-
-  console.log('munged', mungedPosts);
 
   return {
     type: actionTypes.RECEIVED_POSTS,
@@ -37,6 +36,5 @@ export const fetchPosts = () => {
     .then( (res) => {
       dispatch(receivedPosts(res.data.children));
     })
-    .ca
   }
 }

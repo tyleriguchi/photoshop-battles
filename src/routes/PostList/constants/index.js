@@ -1,0 +1,3 @@
+
+export const REDDIT_POSTS = 'REDDIT_POSTS';
+export const RECEIVED_POSTS = 'RECEIVED_POSTS';

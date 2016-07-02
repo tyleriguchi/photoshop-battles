@@ -1,21 +1,12 @@
 import React from 'react'
 // import classes from './Counter.scss'
-import ListItem from '../RedditPostListItem';
+import ListItem from '../PostListItem';
 
 export const RedditPostList = (props) => {
-  const posts = props.posts || [];
-  console.log('posts', posts)
+  console.log(props)
   return (
     <div>
-      <button onClick={props.fetchPosts}>Fetch</button>
-      {posts.map( (post, idx) => {
-        console.log('post', post)
-        return(
-          <ListItem key={idx}
-            post={post} />
-        )
-      }
-    )}
+      {props.id}
     </div>
   )
 }
