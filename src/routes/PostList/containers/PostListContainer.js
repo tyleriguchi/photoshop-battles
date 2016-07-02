@@ -16,12 +16,12 @@ const mapActionCreators = {
   fetchPosts
 }
 
-const mapStateToProps = (state, ownProps) => {(
-  return {
+const mapStateToProps = (state, ownProps) => (
+  {
     id: ownProps.params.id,
-    posts: state.PostList.get('posts')
+    posts: state.PostList.posts.all
   }
-)};
+);
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
 

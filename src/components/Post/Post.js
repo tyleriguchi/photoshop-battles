@@ -2,19 +2,21 @@ import React from 'react'
 // import classes from './Counter.scss'
 import ListItem from '../PostListItem';
 
-export const RedditPostList = (props) => {
-  console.log(props)
-  return (
-    <div>
-      {props.id}
-    </div>
-  )
+export class Post extends React.Component {
+  static propTypes = {
+    // history: PropTypes.object.isRequired,
+    // routes: PropTypes.object.isRequired,
+    // routerKey: PropTypes.number,
+    // store: PropTypes.object.isRequired
+  }
+
+  render() {
+    return (
+      <div>
+        {this.props.id['title']}
+      </div>
+    )
+  }
 }
 
-RedditPostList.propTypes = {
-  // counter: React.PropTypes.number.isRequired,
-  // doubleAsync: React.PropTypes.func.isRequired,
-  // increment: React.PropTypes.func.isRequired
-}
-
-export default RedditPostList
+export default Post
