@@ -19,7 +19,7 @@ const mapActionCreators = {
 const mapStateToProps = (state, ownProps) => (
   {
     id: ownProps.params.id,
-    posts: state.PostList.posts.all
+    posts: state.PostList.posts.all || []
   }
 );
 
