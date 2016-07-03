@@ -16,13 +16,12 @@ const mapActionCreators = {
   fetchPostComments
 }
 
-const mapStateToProps = (state, ownProps) => {
-  console.log('loggy', state.Comments.comments.all[ownProps.params.id])
-  return {
+const mapStateToProps = (state, ownProps) => (
+  {
     post: state.PostList.posts.byId[ownProps.params.id],
     comments: state.Comments.comments.all[ownProps.params.id] || [],
   }
-}
+)
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
 
