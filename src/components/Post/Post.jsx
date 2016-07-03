@@ -11,7 +11,9 @@ class Post extends React.Component {
   componentDidMount() {
     const { fetchPostComments, post, comments } = this.props;
 
-    fetchPostComments(post);
+    if (!comments.length > 0) {
+      fetchPostComments(post);
+    }
   }
   renderComments() {
     const { comments } = this.props;
@@ -36,11 +38,13 @@ class Post extends React.Component {
     }
   }
   render() {
-    const { comments } = this.props;
+    const { post } = this.props;
 
     return (
       <div>
-        {this.props.post['title']}
+        <a href={post.permalinkUrl} target={'_blank'} >
+          {this.props.post['title']}
+        </a>
         {this.renderComments()}
       </div>
     )
