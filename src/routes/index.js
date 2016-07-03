@@ -1,6 +1,5 @@
 // We only need to import the modules necessary for initial render
 import CoreLayout        from '../layouts/CoreLayout/CoreLayout'
-import Home              from './Home'
 import PostListRoute     from './PostList';
 import PostRoute         from './Post';
 
@@ -10,7 +9,7 @@ import PostRoute         from './Post';
 export const createRoutes = (store) => ({
   path: '/',
   component: CoreLayout,
-  indexRoute: Home,
+  indexRoute: { onEnter: (nextState, replace) => replace('/list') },
   childRoutes: [
     PostListRoute(store),
     PostRoute(store),
