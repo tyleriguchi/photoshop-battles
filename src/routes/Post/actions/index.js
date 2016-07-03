@@ -9,10 +9,12 @@ export function receivedComments(postId, comments) {
     const regexImage = /\((.*?)\)/g.exec(data.body);
 
     if (body !== '[deleted]' && regexImage && regexImage[1]) {
+      const image = regexImage[1].match(/.jpg/) ? regexImage[1] : `${regexImage[1]}.jpg`;
+
       return {
         author: data.author,
         id: data.id,
-        image: regexImage[1],
+        image: image,
         score: data.score,
       }
     }
