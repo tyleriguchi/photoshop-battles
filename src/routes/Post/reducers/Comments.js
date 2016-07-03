@@ -34,8 +34,7 @@ const ALL_COMMENTS_HANDLER = {
 
 export function allComments( state = {}, action) {
   const handler = ALL_COMMENTS_HANDLER[action.type];
-console.log('handles', handler)
-console.log('state', state)
+
   return handler ? handler(state, action) : state;
 }
 
