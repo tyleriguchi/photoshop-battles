@@ -2,7 +2,7 @@ import React from 'react'
 // import classes from './Counter.scss'
 import ListItem from '../PostListItem';
 
-export class Post extends React.Component {
+class Post extends React.Component {
   static propTypes = {
     // history: PropTypes.object.isRequired,
     // routes: PropTypes.object.isRequired,
