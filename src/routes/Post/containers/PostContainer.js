@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchPosts } from '../actions'
+import { fetchPostComments } from '../actions'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -13,15 +13,16 @@ import Post from 'components/Post'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapActionCreators = {
-  fetchPosts
+  fetchPostComments
 }
 
-const mapStateToProps = (state, ownProps) => (
-  {
-    id: state.PostList.posts.byId[ownProps.params.id],
-    posts: state.PostList.posts.all
+const mapStateToProps = (state, ownProps) => {
+  console.log('loggy', state.Comments.comments.all[ownProps.params.id])
+  return {
+    post: state.PostList.posts.byId[ownProps.params.id],
+    comments: state.Comments.comments.all[ownProps.params.id] || [],
   }
-)
+}
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
 

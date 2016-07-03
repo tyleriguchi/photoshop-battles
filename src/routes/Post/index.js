@@ -10,10 +10,10 @@ export default (store) => ({
       /*  Webpack - use require callback to define
           dependencies for bundling   */
       const Post = require('./containers/PostContainer').default
-      const reducer = require('../PostList/reducers/index').default
+      const reducer = require('./reducers/index').default
 
       /*  Add the reducer to the store on key 'counter'  */
-      injectReducer(store, { key: 'PostList', reducer })
+      injectReducer(store, { key: 'Comments', reducer })
 
       /*  Return getComponent   */
       cb(null, Post)

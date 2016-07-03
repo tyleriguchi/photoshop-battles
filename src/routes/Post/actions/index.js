@@ -1,39 +1,51 @@
 import * as actionTypes from '../constants';
-import _ from 'lodash';
+import compact from 'lodash/compact';
 
-export function receivedPosts(posts = []) {
-  const mungedPosts = posts.map( (post) => {
-    const data = post.data;
+export function receivedComments(postId, comments) {
+  const mungedComments = comments.map( (comment) => {
+    const data = comment.data;
+    const body = data.body;
+    // regex for seeing if body contains image
+    const regexImage = /\((.*?)\)/g.exec(data.body);
 
-    if (data.thumbnail !== 'self') {
+    if (body !== '[deleted]' && regexImage && regexImage[1]) {
       return {
-        title: data.title,
-        images: data.preview.images,
+        author: data.author,
+        id: data.id,
+        image: regexImage[1],
         score: data.score,
-        url: data.url,
       }
     }
-    return null;
-  });
-
+  })
   return {
-    type: actionTypes.RECEIVED_POSTS,
+    type: actionTypes.RECEIVED_COMMENTS,
     payload: {
-      posts: _.compact(mungedPosts)
+      postId,
+      comments: compact(mungedComments)
     }
   }
 }
 
-export const fetchPosts = () => {
+export function fetchPostComments(post) {
+  const { id, permalink } = post;
+
+  if (!id) {
+    throw new Error('post needs an id');
+  }
+  if (!permalink) {
+    throw new Error('post needs a url');
+  }
+
   return (dispatch) => {
-    return fetch('https://www.reddit.com/r/photoshopbattles.json', {
+    return fetch(permalink, {
       contentType: 'application/json'
     })
     .then( (res) => {
       return res.json()
     })
     .then( (res) => {
-      dispatch(receivedPosts(res.data.children));
+      console.log('res', res)
+      dispatch(receivedComments(id, res[1].data.children));
     })
   }
 }

@@ -1,19 +1,30 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 // import classes from './Counter.scss'
-import ListItem from '../PostListItem';
+import CommentItem from 'components/CommentItem';
 
 class Post extends React.Component {
   static propTypes = {
-    // history: PropTypes.object.isRequired,
-    // routes: PropTypes.object.isRequired,
-    // routerKey: PropTypes.number,
-    // store: PropTypes.object.isRequired
+    fetchPostComments: PropTypes.func.isRequired,
+    post: PropTypes.object.isRequired,
+  }
+
+  componentDidMount() {
+    const { fetchPostComments, post, comments } = this.props;
+
+    fetchPostComments(post);
   }
 
   render() {
+    const { comments } = this.props;
+    
     return (
       <div>
-        {this.props.id['title']}
+        {this.props.post['title']}
+        {comments.map( (comment, idx) => (
+          <CommentItem
+            key={idx}
+            comment={comment} />
+        ))}
       </div>
     )
   }

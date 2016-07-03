@@ -1,17 +1,23 @@
 import * as actionTypes from '../constants';
-import _ from 'lodash';
+import compact from 'lodash/compact';
+
+const formatPermaLink = (permalink) => {
+  const permalinkWithJson = `${permalink.substr(0, permalink.length - 1)}.json`;
+
+  return `https:/www.reddit.com${permalinkWithJson}`;
+}
 
 export function receivedPosts(posts = []) {
   const mungedPosts = posts.map( (post) => {
     const data = post.data;
 
-    if (data.thumbnail !== 'self') {
+    if (data.thumbnail !== 'self' && data.hasOwnProperty('preview')) {
       return {
         id: data.id,
         title: data.title,
         images: data.preview.images,
+        permalink: formatPermaLink(data.permalink),
         score: data.score,
-        url: data.url,
       }
     }
     return null;
@@ -20,7 +26,7 @@ export function receivedPosts(posts = []) {
   return {
     type: actionTypes.RECEIVED_POSTS,
     payload: {
-      posts: _.compact(mungedPosts)
+      posts: compact(mungedPosts)
     }
   }
 }
