@@ -12,6 +12,8 @@ export function receivedPosts(posts = []) {
     const data = post.data;
 
     if (data.thumbnail !== 'self' && data.hasOwnProperty('preview')) {
+      const thumbnail = data.preview.images[0].resolutions[2].url.replace(/&amp;/g, '&');
+
       return {
         id: data.id,
         title: data.title,
@@ -19,6 +21,7 @@ export function receivedPosts(posts = []) {
         permalink: formatPermaLink(data.permalink),
         permalinkUrl: `https://www.reddit.com${data.permalink}`,
         score: data.score,
+        thumbnailImage: thumbnail
       }
     }
     return null;

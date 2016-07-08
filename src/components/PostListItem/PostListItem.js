@@ -10,7 +10,7 @@ export const PostListItem = (props) => {
       <Link to={`list/${post.id}`}>
         <div>{post.score}</div>
         <div>{post.title}</div>
-        <img style={{maxHeight: '300px'}} src={post.images[0].source.url} />
+        <img src={post.thumbnailImage} />
       </Link>
     </div>
   )
