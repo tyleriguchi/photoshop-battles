@@ -4,9 +4,11 @@ import ListItem from '../PostListItem';
 
 export default class RedditPostList extends React.Component {
   componentDidMount() {
-    const { fetchPosts } = this.props;
+    const { posts, fetchPosts } = this.props;
 
-    fetchPosts();
+    if (posts.length < 1) {
+      fetchPosts();
+    }
   }
 
   render() {
