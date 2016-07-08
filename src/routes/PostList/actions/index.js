@@ -17,7 +17,7 @@ export function receivedPosts(posts = []) {
         title: data.title,
         images: data.preview.images,
         permalink: formatPermaLink(data.permalink),
-        permalinkUrl: `https:/www.reddit.com${data.permalink}`,
+        permalinkUrl: `https://www.reddit.com${data.permalink}`,
         score: data.score,
       }
     }
