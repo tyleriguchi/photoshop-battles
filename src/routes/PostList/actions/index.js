@@ -4,7 +4,7 @@ import compact from 'lodash/compact';
 const formatPermaLink = (permalink) => {
   const permalinkWithJson = `${permalink.substr(0, permalink.length - 1)}.json`;
 
-  return `https:/www.reddit.com${permalinkWithJson}`;
+  return `https://www.reddit.com${permalinkWithJson}`;
 }
 
 export function receivedPosts(posts = []) {

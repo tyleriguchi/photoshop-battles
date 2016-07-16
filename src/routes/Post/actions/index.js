@@ -40,9 +40,6 @@ export function receivedComments(postId, comments) {
       if (checkImageEnding(ImageRe[1])) {
         image = ImageRe[1];
       }
-      // else if (directLink(ImageRe[1])) {
-      //
-      // }
       else {
         image = `${ImageRe[1]}.jpg`;
       }
