@@ -1,15 +1,51 @@
 import * as actionTypes from '../constants';
 import compact from 'lodash/compact';
 
+export function checkForImage(str) {
+  let group;
+  if (group = /\((.*?)\)/g.exec(str)) { return group }
+  if (group = /(https?\:\/\/i.imgur.com\/\w+)/.exec(str)) { return group; }
+  return null;
+}
+
+export function isDirectLink(str) {
+  return /(https?\:\/\/i.imgur.com\/\w+(?:[/#]|$))/.test(str);
+}
+
+export function checkImageEnding(str) {
+  return /.jpg|.png/.test(str);
+}
+
+export function checkIfAlbum(str) {
+  return /\/a\//.test(str);
+}
+
 export function receivedComments(postId, comments) {
   const mungedComments = comments.map( (comment) => {
     const data = comment.data;
     const body = data.body;
-    // regex for seeing if body contains image
-    const regexImage = /\((.*?)\)/g.exec(data.body);
 
-    if (body !== '[deleted]' && regexImage && regexImage[1]) {
-      const image = regexImage[1].match(/.jpg/) ? regexImage[1] : `${regexImage[1]}.jpg`;
+    // comment was deleted
+    if (body === '[deleted]') { return; }
+
+    // check to see if body contains an image
+    const ImageRe = checkForImage(body);
+
+    if (ImageRe && ImageRe[1]) {
+      // currently eject if it's an album
+      if (checkIfAlbum(ImageRe[1])) { return }
+
+      let image;
+
+      if (checkImageEnding(ImageRe[1])) {
+        image = ImageRe[1];
+      }
+      // else if (directLink(ImageRe[1])) {
+      //
+      // }
+      else {
+        image = `${ImageRe[1]}.jpg`;
+      }
 
       return {
         author: data.author,
