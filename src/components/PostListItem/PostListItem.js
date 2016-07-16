@@ -8,9 +8,9 @@ export const PostListItem = (props) => {
   return (
     <div>
       <Link to={`list/${post.id}`}>
+        <img src={post.thumbnailImage} />
         <div>{post.score}</div>
         <div>{post.title}</div>
-        <img src={post.thumbnailImage} />
       </Link>
     </div>
   )
