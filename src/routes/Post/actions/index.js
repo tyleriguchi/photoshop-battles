@@ -13,11 +13,15 @@ export function isDirectLink(str) {
 }
 
 export function checkImageEnding(str) {
-  return /.jpg|.png/.test(str);
+  return /\.jpg|\.png/.test(str);
 }
 
-export function checkIfAlbum(str) {
-  return /\/a\//.test(str);
+export function checkForGifV(str) {
+  return /\.gifv/.test(str);
+}
+
+export function checkIfLinkable(str) {
+  return /\/a\/|gallery/.test(str);
 }
 
 export function receivedComments(postId, comments) {
@@ -32,13 +36,16 @@ export function receivedComments(postId, comments) {
     const ImageRe = checkForImage(body);
 
     if (ImageRe && ImageRe[1]) {
-      // currently eject if it's an album
-      if (checkIfAlbum(ImageRe[1])) { return }
+      // currently eject if it's an album or a gallery
+      if (checkIfLinkable(ImageRe[1])) { return }
 
       let image;
 
       if (checkImageEnding(ImageRe[1])) {
         image = ImageRe[1];
+      }
+      else if (checkForGifV(ImageRe[1])) {
+        image = ImageRe[1].slice(0, ImageRe[1].length - 1);
       }
       else {
         image = `${ImageRe[1]}.jpg`;
@@ -49,6 +56,7 @@ export function receivedComments(postId, comments) {
         id: data.id,
         image: image,
         score: data.score,
+        body_html: data.body_html
       }
     }
   })
@@ -59,6 +67,12 @@ export function receivedComments(postId, comments) {
       comments: compact(mungedComments)
     }
   }
+}
+
+export function fetchingComments() {
+ return {
+   type: actionTypes.IS_LOADING_COMMENTS
+ }
 }
 
 export function fetchPostComments(post) {
@@ -72,6 +86,8 @@ export function fetchPostComments(post) {
   }
 
   return (dispatch) => {
+    dispatch(fetchingComments());
+
     return fetch(permalink, {
       contentType: 'application/json'
     })
