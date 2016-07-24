@@ -6,7 +6,7 @@ export const PostListItem = (props) => {
   const post = props.post;
 
   return (
-    <div>
+    <div className={classes['post-list']}>
       <Link to={`list/${post.id}`}>
         <img src={post.thumbnailImage} />
         <div>{post.score}</div>

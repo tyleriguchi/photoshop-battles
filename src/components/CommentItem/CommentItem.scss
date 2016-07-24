@@ -3,13 +3,18 @@
   text-decoration: underline;
 }
 
-.post-list {
+.comment-item {
   display: inline-block;
   max-width: calc(100% - 20px);
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
+
   &:last-child {
     margin-bottom: 20px;
   }
+}
+
+.comment-item__img {
+  max-width: 300px;
 }
