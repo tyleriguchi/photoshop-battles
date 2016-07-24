@@ -1,24 +1,6 @@
 import { combineReducers } from 'redux';
 import * as actionTypes from '../constants/index';
 
-// const BY_ID_HANDLER = {
-//   [actionTypes.RECEIVED_COMMENTS]: (state, action) => {
-//     return Object.assign({},
-//       state,
-//       action.payload.comments.reduce((obj, comment) => {
-//         obj[comment.id] = comment
-//         return obj
-//       }, {})
-//     )
-//   },
-// }
-//
-// export function byId (state = {}, action) {
-//   const handler = BY_ID_HANDLER[action.type];
-//
-//   return handler ? handler(state, action) : state;
-// }
-
 const ALL_COMMENTS_HANDLER = {
   [actionTypes.RECEIVED_COMMENTS]: (state, action) => {
     const obj = {};
@@ -29,7 +11,7 @@ const ALL_COMMENTS_HANDLER = {
       state,
       obj
     )
-  }
+  },
 }
 
 export function allComments( state = {}, action) {
@@ -38,6 +20,31 @@ export function allComments( state = {}, action) {
   return handler ? handler(state, action) : state;
 }
 
+const IS_LOADING_HANDLER = {
+  [actionTypes.RECEIVED_COMMENTS]: (state, action) => {
+    return {
+      isLoading: false
+    }
+  },
+
+  [actionTypes.IS_LOADING_COMMENTS]: (state, action) => {
+    return {
+      isLoading: true
+    }
+  }
+}
+
+const isLoadingState = {
+  isLoading: false
+}
+
+export function isLoading( state = {}, action) {
+  const handler = IS_LOADING_HANDLER[action.type];
+
+  return handler ? handler(state, action) : isLoadingState;
+}
+
 export default combineReducers({
   all: allComments,
+  isLoading: isLoading
 })

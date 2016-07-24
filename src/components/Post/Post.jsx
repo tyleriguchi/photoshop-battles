@@ -16,7 +16,7 @@ class Post extends React.Component {
     }
   }
   renderComments() {
-    const { comments } = this.props;
+    const { comments, isLoading } = this.props;
 
     if (comments.length > 0) {
       return (
@@ -26,6 +26,13 @@ class Post extends React.Component {
               key={idx}
               comment={comment} />
           ))}
+        </div>
+      )
+    }
+    else if (isLoading) {
+      return (
+        <div>
+          {'Loading'}
         </div>
       )
     }

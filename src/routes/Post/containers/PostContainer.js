@@ -20,6 +20,7 @@ const mapStateToProps = (state, ownProps) => (
   {
     post: state.PostList.posts.byId[ownProps.params.id],
     comments: state.Comments.comments.all[ownProps.params.id] || [],
+    isLoading: state.Comments.comments.isLoading
   }
 )
 
