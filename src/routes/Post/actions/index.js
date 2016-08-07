@@ -24,8 +24,8 @@ export function checkIfLinkable(str) {
   return /\/a\/|gallery/.test(str);
 }
 
-export function receivedComments(postId, comments) {
-  const mungedComments = comments.map( (comment) => {
+export function mungeComments(comments) {
+  return comments.map( (comment) => {
     const data = comment.data;
     const body = data.body;
 
@@ -54,12 +54,30 @@ export function receivedComments(postId, comments) {
       return {
         author: data.author,
         id: data.id,
-        image: image,
+        image: {
+          url: image,
+          isLoading: true
+        },
         score: data.score,
         body_html: data.body_html
       }
     }
   })
+}
+
+export function commentImageLoaded(postId, commentId) {
+  return {
+    type: actionTypes.COMMENT_IMAGE_LOADED,
+    payload: {
+      postId,
+      commentId
+    }
+  }
+}
+
+export function receivedComments(postId, comments) {
+  const mungedComments = mungeComments(comments);
+
   return {
     type: actionTypes.RECEIVED_COMMENTS,
     payload: {
