@@ -21,7 +21,10 @@ export function receivedPosts(posts = []) {
         permalink: formatPermaLink(data.permalink),
         permalinkUrl: `https://www.reddit.com${data.permalink}`,
         score: data.score,
-        thumbnailImage: thumbnail
+        thumbnail: {
+          image: thumbnail,
+          isLoading: true,
+        }
       }
     }
     return null;
@@ -31,6 +34,15 @@ export function receivedPosts(posts = []) {
     type: actionTypes.RECEIVED_POSTS,
     payload: {
       posts: compact(mungedPosts)
+    }
+  }
+}
+
+export function postImageLoaded(postId) {
+  return {
+    type: actionTypes.POST_IMAGE_LOADED,
+    payload: {
+      postId,
     }
   }
 }

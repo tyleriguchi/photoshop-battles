@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchPosts } from '../actions'
+import { fetchPosts, postImageLoaded } from '../actions'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -13,7 +13,8 @@ import PostList from 'components/PostList'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapActionCreators = {
-  fetchPosts
+  fetchPosts,
+  postImageLoaded,
 }
 
 const mapStateToProps = (state, ownProps) => (

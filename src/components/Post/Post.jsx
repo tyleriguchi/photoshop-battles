@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
-// import classes from './Counter.scss'
-import CommentItem from 'components/CommentItem';
+import classes from './Post.scss'
+import CommentItem from 'components/CommentItem'
 
 class Post extends React.Component {
   static propTypes = {
@@ -15,24 +15,27 @@ class Post extends React.Component {
       fetchPostComments(post);
     }
   }
+
   renderComments() {
-    const { comments, isLoading } = this.props;
+    const { post, comments, isLoading, commentImageLoaded } = this.props;
 
     if (comments.length > 0) {
       return (
         <div>
-          {comments.map( (comment, idx) => (
+          {comments.map( (comment, key) => (
             <CommentItem
-              key={idx}
-              comment={comment} />
+              key={key}
+              comment={comment}
+              postId={post.id}
+              commentImageLoaded={commentImageLoaded} />
           ))}
         </div>
       )
     }
     else if (isLoading) {
       return (
-        <div>
-          {'Loading'}
+        <div className='loading-div'>
+          <i className='fa fa-refresh fa-spin fa-4x'></i>
         </div>
       )
     }

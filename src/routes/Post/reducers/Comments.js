@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import merge from 'lodash/merge';
 import * as actionTypes from '../constants/index';
 
 const ALL_COMMENTS_HANDLER = {
@@ -12,10 +13,48 @@ const ALL_COMMENTS_HANDLER = {
       obj
     )
   },
+  [actionTypes.COMMENT_IMAGE_LOADED]: (state, action) => {
+    const postId = action.payload.postId
+
+    const updatedPost = state[postId].map((comment, index) => {
+        if (comment.id === action.payload.commentId) {
+          // Copy the object before mutating
+          return Object.assign({}, comment, {
+            image: {
+              ...comment.image,
+              isLoading: false
+            }
+          })
+        }
+        return comment
+      })
+    return {
+      ...state,
+      [postId]: updatedPost
+    }
+  }
 }
 
 export function allComments( state = {}, action) {
   const handler = ALL_COMMENTS_HANDLER[action.type];
+
+  return handler ? handler(state, action) : state;
+}
+
+const BY_ID_HANDLER = {
+  [actionTypes.RECEIVED_COMMENTS]: (state, action) => {
+    return Object.assign({},
+      state,
+      action.payload.comments.reduce( (obj, comment) => {
+        obj[comment.id] = comment
+        return obj
+      }, {})
+    )
+  },
+}
+
+export function byId (state = {}, action) {
+  const handler = BY_ID_HANDLER[action.type];
 
   return handler ? handler(state, action) : state;
 }
@@ -46,5 +85,6 @@ export function isLoading( state = {}, action) {
 
 export default combineReducers({
   all: allComments,
-  isLoading: isLoading
+  isLoading,
+  commentById: byId,
 })
