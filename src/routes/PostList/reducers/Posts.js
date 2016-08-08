@@ -23,6 +23,21 @@ const ALL_POSTS_HANDLER = {
   [actionTypes.RECEIVED_POSTS]: (state, action) => {
     return state.concat(action.payload.posts);
   },
+
+  [actionTypes.POST_IMAGE_LOADED]: (state, action) => {
+    return state.map((post, index) => {
+        if (post.id === action.payload.postId) {
+          return Object.assign({}, post, {
+            thumbnail: {
+              ...post.thumbnail,
+              isLoading: false
+            }
+          })
+        }
+        
+        return post
+      })
+  }
 }
 
 export function allPosts( state = [], action) {

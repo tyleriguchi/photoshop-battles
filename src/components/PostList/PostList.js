@@ -1,8 +1,7 @@
-import React from 'react'
-// import classes from './Counter.scss'
+import React, { PropTypes } from 'react'
 import ListItem from '../PostListItem';
 
-export default class RedditPostList extends React.Component {
+class RedditPostList extends React.Component {
   componentDidMount() {
     const { posts, fetchPosts } = this.props;
 
@@ -12,16 +11,25 @@ export default class RedditPostList extends React.Component {
   }
 
   render() {
-    const { posts } = this.props;
+    const { posts, postImageLoaded } = this.props;
 
     return (
       <div>
         {posts.map( (post, idx) => (
           <ListItem
             key={idx}
-            post={post} />
+            post={post}
+            postImageLoaded={postImageLoaded} />
         ))}
       </div>
     )
   }
 }
+
+RedditPostList.propTypes = {
+  posts: PropTypes.array.isRequired,
+  postImageLoaded: PropTypes.func.isRequired,
+  fetchPosts: PropTypes.func.isRequired,
+}
+
+export default RedditPostList
